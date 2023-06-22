@@ -1,0 +1,1 @@
+위에서 requestMapping만 적용하면 함수 바인딩이 안된다!

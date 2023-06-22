@@ -54,18 +54,4 @@ public class HttpMethodTest {
                 .statusCode(HttpStatus.OK.value())
                 .body("size()", is(2));
     }
-
-    /**
-     * HttpMethodController > duplicate 메서드
-     */
-    @DisplayName("duplicate")
-    @Test
-    void duplicateURI() {
-        RestAssured.given().log().all()
-                .accept(MediaType.APPLICATION_JSON_VALUE)
-                .when().get("/duplicate")
-                .then().log().all()
-                .statusCode(HttpStatus.OK.value())
-                .body("size()", is(2));
-    }
 }

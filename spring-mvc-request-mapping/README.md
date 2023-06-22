@@ -1,7 +1,6 @@
 Spring의 @RequestMapping
 
 Spring MVC의 annotation 중 하나인 @RequestMapping과 그 외의 관련된 annotation들을 살펴보려고 합니다.
-
 # @RequestMapping
 ***
 ## value, method
@@ -213,3 +212,42 @@ public String duplicateEx() {
 이 경우에 에러가 발생합니다.
 >Caused by: java.lang.IllegalStateException: Ambiguous mapping.
 
+
+클래스 단위에서 requestMapping으로 value를 정하고, 메서드 단위에서 value나 method type을 지정해주지 않으면 uri에 바인딩 되지 않습니다.
+
+```java
+@RequestMapping("/http-method/users")
+public class HttpMethodController {
+
+    public ResponseEntity createUser(@RequestBody User user) {
+        Long id = 1L;
+        return ResponseEntity.created(URI.create("/users/" + id)).build();
+    }
+
+    public ResponseEntity<List<User>> showUser() {
+        List<User> users = Arrays.asList(
+                new User("이름", "email"),
+                new User("이름", "email")
+        );
+        return ResponseEntity.ok().body(users);
+    }
+
+}
+```
+
+```java
+@DisplayName("Http Method - POST")
+    @Test
+    void createUser() {
+        User user = new User("이름", "email@email.com");
+
+        RestAssured.given().log().all()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(user)
+                .when().post("/http-method/users")
+                .then().log().all()
+                .statusCode(HttpStatus.CREATED.value())
+                .header("Location", "/users/1");
+    }
+```
+![img.png](img.png)

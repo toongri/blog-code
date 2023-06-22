@@ -1,7 +1,9 @@
 package toongri.blog.springmvcrequestmapping.mapping;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import toongri.blog.springmvcrequestmapping.domain.User;
 
 import java.net.URI;
@@ -9,8 +11,8 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/http-method/users")
-public class HttpMethodController {
+@RequestMapping("/media-type")
+public class MediaTypeController {
 
     public ResponseEntity createUser(@RequestBody User user) {
         Long id = 1L;
@@ -25,4 +27,7 @@ public class HttpMethodController {
         return ResponseEntity.ok().body(users);
     }
 
+    public String userPage() {
+        return "user page";
+    }
 }
