@@ -124,6 +124,92 @@ public String getBarsBySimplePathWithPathVariable(
 
 다음과 같이 사용하여 path variable의 형식을 제한할 수 있습니다.
 
-# RequestMapping Request Parameters
+# RequestMapping with Request Parameters
 ***
+
+@RequestMapping은 url parameter를 @RequestParam을 이용하여 쉽게 매핑할 수 있도록 해줍니다.
+## @RequestParam
+```java
+@RequestMapping(value = "/ex/bars", method = GET)
+@ResponseBody
+public String getBarBySimplePathWithRequestParam(
+  @RequestParam("id") long id) {
+    return "Get a specific Bar with id=" + id;
+}
+```
+
+이 매핑을 테스트하려면 아래 command를 실행해야 합니다.
+> curl -i -d id=100 http://localhost:8080/spring-rest/ex/bars
+
+## RequestMapping define Request Parameters
+@RequestMapping은 request parameter를 정의할 수 있습니다.
+
+```java
+@RequestMapping(value = "/ex/bars", params = "id", method = GET)
+@ResponseBody
+public String getBarBySimplePathWithExplicitRequestParam(
+  @RequestParam("id") long id) {
+    return "Get a specific Bar with id=" + id;
+}
+```
+
+좀더 유연하게도 사용합니다.
+정의한 값을 모두 사용하지 않아도 가능합니다.
+
+```java
+@RequestMapping(
+  value = "/ex/bars", 
+  params = { "id", "second" }, 
+  method = GET)
+@ResponseBody
+public String getBarBySimplePathWithExplicitRequestParams(
+  @RequestParam("id") long id) {
+    return "Narrow Get a specific Bar with id=" + id;
+}
+```
+항상 @RequestMapping에서 정의한 값 중 가장 구체적으로 정의된 것이 사용됩니다.
+
+
+# RequestMapping Corner Cases
+***
+
+## @RequestMapping with Multiple Paths or HTTP Methods
+```java
+@RequestMapping(
+    value = { "/ex/advanced/bars", "/ex/advanced/foos" },
+    method = GET)
+@ResponseBody
+public String getFoosOrBarsByPath() {
+    return "Advanced - Get some Foos or Bars";
+}
+
+@RequestMapping(
+  value = "/ex/foos/multiple", 
+  method = { RequestMethod.PUT, RequestMethod.POST }
+)
+@ResponseBody
+public String putAndPostFoos() {
+    return "Advanced - PUT and POST within single method";
+}
+```
+
+## Mapping Error Cases
+
+### Ambiguous Mapping
+HTTP 메서드, URL, 매개 변수, 헤더 및 미디어 유형이 동일한 경우 에러가 발생합니다.
+
+```java
+@GetMapping(value = "/foos/duplicate" )
+public String duplicate() {
+    return "Duplicate";
+}
+
+@GetMapping(value = "/foos/duplicate" )
+public String duplicateEx() {
+    return "Duplicate";
+}
+```
+
+이 경우에 에러가 발생합니다.
+>Caused by: java.lang.IllegalStateException: Ambiguous mapping.
 
