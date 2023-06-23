@@ -25,6 +25,23 @@ public class HttpMethodTest {
     }
 
     /**
+     * HttpMethodController > getFoosBySimplePath 메서드
+     */
+    @DisplayName("requestMapping의 method 속성을 정의하지 않으면 모든 HTTP 메서드에 대해 처리한다.")
+    @Test
+    void notDefinedMethod() {
+        RestAssured.given().log().all()
+                .when().get("/http-method/users/ex/foos")
+                .then().log().all()
+                .statusCode(HttpStatus.OK.value());
+
+        RestAssured.given().log().all()
+                .when().post("/http-method/users/ex/foos")
+                .then().log().all()
+                .statusCode(HttpStatus.OK.value());
+    }
+
+    /**
      * HttpMethodController > createUser 메서드
      */
     @DisplayName("Http Method - POST")
@@ -54,4 +71,5 @@ public class HttpMethodTest {
                 .statusCode(HttpStatus.OK.value())
                 .body("size()", is(2));
     }
+
 }
