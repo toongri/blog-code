@@ -1,13 +1,18 @@
 package toongri.blog.springmvcrequestmapping.mapping;
 
 import io.restassured.RestAssured;
+import io.restassured.response.ExtractableResponse;
+import io.restassured.response.Response;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import toongri.blog.springmvcrequestmapping.domain.User;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 
@@ -22,20 +27,27 @@ public class UriPatternTest {
         RestAssured.port = port;
     }
 
+
     /**
      * UriPatternController > pathVariable 메서드
      */
     @DisplayName("Uri Pattern - @PathVariable")
     @Test
     void pathVariable() {
-        RestAssured.given().log().all()
+        //given
+        String url = "/uri-pattern/users/{userId}";
+        long path = 1;
+
+        //when
+        ExtractableResponse<Response> apiResponse = RestAssured.given().log().all()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
-                .when().get("/uri-pattern/users/1")
+                .when().get(url, path)
                 .then().log().all()
-                .statusCode(HttpStatus.OK.value())
-                .body("id", notNullValue())
-                .body("name", notNullValue())
-                .body("email", notNullValue());
+                .statusCode(HttpStatus.OK.value()).extract();
+
+        //then
+        User response = apiResponse.body().as(User.class);
+        Assertions.assertThat(response.getId()).isEqualTo(path);
     }
 
     /**
@@ -54,10 +66,9 @@ public class UriPatternTest {
 
         RestAssured.given().log().all()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
-                .when().get("/uri-pattern/patterns/b")
+                .when().get("/uri-pattern/patterns/bc")
                 .then().log().all()
-                .statusCode(HttpStatus.OK.value())
-                .body(is("pattern"));
+                .statusCode(HttpStatus.NOT_FOUND.value());
     }
 
     /**
@@ -69,21 +80,21 @@ public class UriPatternTest {
     void patternStars() {
         RestAssured.given().log().all()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
-                .when().get("/uri-pattern/patterns/multi")
+                .when().get("/uri-pattern/patterns-2/multi")
                 .then().log().all()
                 .statusCode(HttpStatus.OK.value())
                 .body(is("pattern-multi"));
 
         RestAssured.given().log().all()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
-                .when().get("/uri-pattern/patterns/all")
+                .when().get("/uri-pattern/patterns-2/all")
                 .then().log().all()
                 .statusCode(HttpStatus.OK.value())
                 .body(is("pattern-multi"));
 
         RestAssured.given().log().all()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
-                .when().get("/uri-pattern/patterns/all/names")
+                .when().get("/uri-pattern/patterns-2/all/names")
                 .then().log().all()
                 .statusCode(HttpStatus.OK.value())
                 .body(is("pattern-multi"));
