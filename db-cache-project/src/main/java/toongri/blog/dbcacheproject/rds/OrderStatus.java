@@ -1,4 +1,4 @@
-package toongri.blog.dbcacheproject.order;
+package toongri.blog.dbcacheproject.rds;
 
 import lombok.Getter;
 

@@ -1,9 +1,8 @@
-package toongri.blog.dbcacheproject.user;
+package toongri.blog.dbcacheproject.rds;
 
 
 import jakarta.persistence.*;
 import lombok.*;
-import toongri.blog.dbcacheproject.utils.BaseTimeEntity;
 
 @Entity
 @Getter

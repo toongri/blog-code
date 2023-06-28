@@ -1,4 +1,4 @@
-package toongri.blog.dbcacheproject.user;
+package toongri.blog.dbcacheproject.rds;
 
 
 import jakarta.persistence.Entity;
@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Persistable;
-import toongri.blog.dbcacheproject.utils.BaseTimeEntity;
 
 import java.math.BigDecimal;
 

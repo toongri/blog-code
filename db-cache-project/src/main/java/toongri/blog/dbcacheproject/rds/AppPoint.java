@@ -1,4 +1,4 @@
-package toongri.blog.dbcacheproject.app_point;
+package toongri.blog.dbcacheproject.rds;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

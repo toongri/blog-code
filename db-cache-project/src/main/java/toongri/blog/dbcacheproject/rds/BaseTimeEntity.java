@@ -1,4 +1,4 @@
-package toongri.blog.dbcacheproject.utils;
+package toongri.blog.dbcacheproject.rds;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

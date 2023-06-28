@@ -1,13 +1,11 @@
-package toongri.blog.dbcacheproject.order;
+package toongri.blog.dbcacheproject.rds;
 
 import jakarta.persistence.*;
 import lombok.*;
 import toongri.blog.dbcacheproject.app_point.AddPointUsecase;
-import toongri.blog.dbcacheproject.utils.BaseTimeEntity;
+import toongri.blog.dbcacheproject.order.OrderStatus;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
