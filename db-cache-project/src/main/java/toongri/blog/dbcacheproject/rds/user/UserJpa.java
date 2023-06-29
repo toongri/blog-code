@@ -4,6 +4,7 @@ package toongri.blog.dbcacheproject.rds.user;
 import jakarta.persistence.*;
 import lombok.*;
 import toongri.blog.dbcacheproject.rds.BaseTimeEntityJpa;
+import toongri.blog.dbcacheproject.rds.grade.GradeJpa;
 
 @Entity
 @Getter
@@ -21,8 +22,8 @@ public class UserJpa extends BaseTimeEntityJpa {
 
   private String gradeCode;
 
-  private UserJpa(String name) {
+  public UserJpa(String name, GradeJpa gradeJpa) {
     this.name = name;
+    this.gradeCode = gradeJpa.getCode();
   }
-
 }

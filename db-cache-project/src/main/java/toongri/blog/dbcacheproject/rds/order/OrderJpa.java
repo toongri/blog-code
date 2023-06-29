@@ -3,6 +3,7 @@ package toongri.blog.dbcacheproject.rds.order;
 import jakarta.persistence.*;
 import lombok.*;
 import toongri.blog.dbcacheproject.rds.BaseTimeEntityJpa;
+import toongri.blog.dbcacheproject.rds.user.UserJpa;
 
 import java.math.BigDecimal;
 
@@ -25,6 +26,12 @@ public class OrderJpa extends BaseTimeEntityJpa {
 
   @Enumerated(EnumType.STRING)
   private OrderStatus status;
+
+  public OrderJpa(UserJpa user, BigDecimal totalPrice, OrderStatus status) {
+    this.userId = user.getId();
+    this.totalPrice = totalPrice;
+    this.status = status;
+  }
 
   public String getStatusName() {
     return status.name();

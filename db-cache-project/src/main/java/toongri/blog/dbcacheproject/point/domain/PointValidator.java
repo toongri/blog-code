@@ -7,11 +7,11 @@ public class PointValidator {
 
     public void validate(AppPoint point, Order order) {
         if (point.isEmpty()) {
-            throw new RuntimeException("포인트가 없습니다.");
+            throw new RuntimeException(String.format("order %d는 주문금액이 계산되지 않습니다.", order.getId()));
         }
 
         if (!order.isPayed()) {
-            throw new IllegalArgumentException("결제되지 않은 주문입니다.");
+            throw new IllegalArgumentException(String.format("order %d는 결제되지 않았습니다.", order.getId()));
         }
     }
 }

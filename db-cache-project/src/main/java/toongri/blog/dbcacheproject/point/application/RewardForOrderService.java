@@ -2,6 +2,7 @@ package toongri.blog.dbcacheproject.point.application;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import toongri.blog.dbcacheproject.point.application.port.in.RewardForOrderUsecase;
 import toongri.blog.dbcacheproject.point.application.port.in.command.RewardForOrderCommand;
 import toongri.blog.dbcacheproject.point.application.port.out.InsertAppPointPort;
@@ -14,6 +15,7 @@ import toongri.blog.dbcacheproject.point.domain.PointValidator;
 
 @Service
 @RequiredArgsConstructor
+@Validated
 class RewardForOrderService implements RewardForOrderUsecase {
 
     private final LoadOrderPort loadOrderPort;

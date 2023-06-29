@@ -17,7 +17,6 @@ import java.math.BigDecimal;
 @Getter
 @Table(name = "grades")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class GradeJpa extends BaseTimeEntityJpa implements Persistable<String> {
   @Id
   private String code;
@@ -29,6 +28,14 @@ public class GradeJpa extends BaseTimeEntityJpa implements Persistable<String> {
   private Integer paymentGoal;
 
   private String image;
+
+  public GradeJpa(String code, String name, BigDecimal accrualRate, Integer paymentGoal, String image) {
+    this.code = code;
+    this.name = name;
+    this.accrualRate = accrualRate;
+    this.paymentGoal = paymentGoal;
+    this.image = image;
+  }
 
   @Override
   public String getId() {
