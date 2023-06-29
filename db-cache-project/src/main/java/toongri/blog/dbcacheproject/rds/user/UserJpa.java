@@ -1,15 +1,16 @@
-package toongri.blog.dbcacheproject.rds;
+package toongri.blog.dbcacheproject.rds.user;
 
 
 import jakarta.persistence.*;
 import lombok.*;
+import toongri.blog.dbcacheproject.rds.BaseTimeEntityJpa;
 
 @Entity
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "users")
-class User extends BaseTimeEntity {
+public class UserJpa extends BaseTimeEntityJpa {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,14 +19,10 @@ class User extends BaseTimeEntity {
 
   private String name;
 
-  private Long gradeId;
+  private String gradeCode;
 
-  private User(String name) {
+  private UserJpa(String name) {
     this.name = name;
-  }
-
-  public static User createUser(String name) {
-    return new User(name);
   }
 
 }

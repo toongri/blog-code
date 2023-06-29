@@ -1,4 +1,4 @@
-package toongri.blog.dbcacheproject.rds;
+package toongri.blog.dbcacheproject.rds.grade;
 
 
 import jakarta.persistence.Entity;
@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Persistable;
+import toongri.blog.dbcacheproject.rds.BaseTimeEntityJpa;
 
 import java.math.BigDecimal;
 
@@ -17,7 +18,7 @@ import java.math.BigDecimal;
 @Table(name = "grades")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-class Grade extends BaseTimeEntity implements Persistable<String> {
+public class GradeJpa extends BaseTimeEntityJpa implements Persistable<String> {
   @Id
   private String code;
 
