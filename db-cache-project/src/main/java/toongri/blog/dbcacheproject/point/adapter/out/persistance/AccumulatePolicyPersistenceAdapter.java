@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import toongri.blog.dbcacheproject.point.application.port.out.LoadAccumulatePolicyPort;
 import toongri.blog.dbcacheproject.point.domain.AccumulatePolicy;
 import toongri.blog.dbcacheproject.point.domain.Order;
-import toongri.blog.dbcacheproject.rds.grade.GradeJpa;
 import toongri.blog.dbcacheproject.rds.user.UserJpa;
 import toongri.blog.dbcacheproject.rds.grade.GradeJpaRepository;
 import toongri.blog.dbcacheproject.rds.user.UserJpaRepository;
@@ -23,7 +22,7 @@ class AccumulatePolicyPersistenceAdapter implements LoadAccumulatePolicyPort {
 
         UserJpa user = userJpaRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException(String.format("User id %d was not found", userId)));
         return gradeJpaRepository
-                        .findById(user.getGradeCode())
+                        .findOneByCode(user.getGradeCode())
                         .map(accumulatePolicyMapper::toMap)
                         .orElseThrow(() ->
                                 new IllegalArgumentException(String.format("Grade id %s was not found", user.getGradeCode())));

@@ -6,6 +6,10 @@ import org.springframework.stereotype.Component;
 public class PointValidator {
 
     public void validate(AppPoint point, Order order) {
+        if (point.getUserId() != order.getOrdererId()) {
+            throw new IllegalArgumentException(String.format("order %d는 user %d의 주문이 아닙니다.", order.getId(), point.getUserId()));
+        }
+
         if (point.isEmpty()) {
             throw new RuntimeException(String.format("order %d는 주문금액이 계산되지 않습니다.", order.getId()));
         }

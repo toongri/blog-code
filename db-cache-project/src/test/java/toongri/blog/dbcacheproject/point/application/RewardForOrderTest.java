@@ -52,7 +52,9 @@ public class RewardForOrderTest {
         Order order = Order.create(1L, 2L, BigDecimal.valueOf(1000L), OrderStatus.PAYED);
         RewardForOrderCommand command = new RewardForOrderCommand(order.getId());
         //when
-        rewardForOrderUsecase.rewardForPayment(command);
+        for (int i = 0; i < 50000; i++) {
+            rewardForOrderUsecase.rewardForPayment(command);
+        }
 
         //then
         AppPointJpa point = appPointJpaRepository.findAll().get(0);
